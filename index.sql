@@ -38,6 +38,24 @@ VALUES ('Software Engineer'),
     ('Marketing Manager'),
     ('HR Specialist');
 
-    INSERT INTO
-    positions (name, isAdmin)
-VALUES ('CEO', TRUE);
+INSERT INTO positions (name, isAdmin) VALUES ('CEO', TRUE);
+
+INSERT INTO
+    employees (
+        name,
+        email,
+        password,
+        department_id,
+        position_id,
+        salary,
+        start_date
+    )
+VALUES (
+        'Adam Havlík',
+        'asajfik@seznam.cz',
+        '$2y$10$q8Dx8lDfZUUsPLjXINNt5uzaAUrmgNRPoq56p.UCx4xNTwn5QiX4C',
+        1,
+        1,
+        60000.00,
+        '2021-01-01'
+    )

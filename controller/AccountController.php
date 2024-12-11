@@ -13,7 +13,7 @@ class AccountController extends Controller
     public function index()
     {
         if ($this->model->isLogged()) {
-            header('Location: /');
+            header('Location: /dashboard/');
         }
 
         $data = [
@@ -55,7 +55,7 @@ class AccountController extends Controller
     public function logout()
     {
         if (!$this->model->isLogged()) {
-            header('Location: /account/');
+            header('Location: /dashboard/');
         }
 
         $this->model->logout();

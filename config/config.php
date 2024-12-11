@@ -15,4 +15,9 @@ define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'tridnischuzkyphp');
+define('DB_NAME', 'company_management');
+
+define('SMTP_HOST', 'spse.jankarlik.cz');
+define('SMTP_USER', 'ems@spse.jankarlik.cz');
+define('SMTP_PASS', 'HovnoKleslo1234!');
+define('SMTP_PORT', 465);

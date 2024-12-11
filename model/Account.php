@@ -34,7 +34,7 @@ class Account extends Model
     public function login($email, $password)
     {
 
-        $stmt = $this->db->prepare('SELECT * FROM employees WHERE email = :email JOIN positions ON employees.position_id = positions.id JOIN departments ON employees.department_id = departments.id');
+        $stmt = $this->db->prepare('SELECT employees.*, positions.name AS position_name, departments.name AS department_name FROM employees JOIN positions ON employees.position_id = positions.id JOIN departments ON employees.department_id = departments.id WHERE employees.email = :email');
         $stmt->execute(params: ['email' => $email]);
         $user = $stmt->fetch();
 
@@ -44,13 +44,11 @@ class Account extends Model
 
         $_SESSION['account'] = $user;
 
-        header('Location: /');
     }
-    
+
     public function logout()
     {
         unset($_SESSION['account']);
         session_destroy();
-        header('Location: /');
     }
 }
