@@ -3,7 +3,7 @@
 class App
 {
 
-    protected $controller = 'zamestnanci';
+    protected $controller = 'account';
     protected $method = 'index';
     protected $params = '';
 
@@ -11,12 +11,12 @@ class App
     {
         $url = $this->parseUrl();
 
-        if (file_exists('../controllers/' . ucfirst($url[0]) . 'Controller.php')) {
+        if (file_exists('./controller/' . ucfirst($url[0]) . 'Controller.php')) {
             try {
                 $this->controller = ucfirst($url[0]) . 'Controller';
                 unset($url[0]);
 
-                require_once '../controllers/' . $this->controller . '.php';
+                require_once './controller/' . $this->controller . '.php';
                 $this->controller = new $this->controller;
 
                 if (isset($url[1])) {
