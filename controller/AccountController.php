@@ -27,38 +27,48 @@ class AccountController extends Controller
             }
             header:
             $data['error'] = $this->model->login($_POST['email'], $_POST['password']);
+
+            header('Location: /');
         }
 
         $this->view('account/login', $data);
     }
 
-    public function register()
-    {
-        if ($this->model->isLogged()) {
-            header('Location: /');
-        }
-        $data = [
-            'title' => 'FFCredit | Registrace',
-            'csrf_token' => $this->getCsrfToken(),
-        ];
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (!$this->checkCsrfToken($_POST['csrf_token'])) {
-                header('Location: ' . $_SERVER['REQUEST_URI']);
-            }
-            $data['error'] = $this->model->register($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['password2']);
-        }
-
-        $this->view('account/register', $data);
-    }
-
     public function logout()
     {
-        if (!$this->model->isLogged()) {
+        if ($this->model->isLogged()) {
             header('Location: /dashboard/');
         }
 
         $this->model->logout();
+
+        header('Location: /');
+    }
+
+    public function register(array $params): void
+    {
+
+        $token = $params[0] ?? '';
+
+        if ($this->model->isLogged()) {
+            $this->model->logout();
+        }
+
+        $data = [
+            'title' => 'Registrace'
+        ];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $password = $_POST['password'] ?? '';
+            $passwordConfirm = $_POST['password_confirm'] ?? '';
+
+            $data['error'] = $this->model->register($token, $password, $passwordConfirm);
+
+            header('Location: /');
+            exit;
+        }
+
+        $this->view('account/register', $data);
     }
 
     private function getCsrfToken()

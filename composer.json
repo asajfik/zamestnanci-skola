@@ -1,0 +1,11 @@
+{
+    "name": "asajf/zamestnanci-skola",
+    "autoload": {
+        "psr-4": {
+            "Asajf\\ZamestnanciSkola\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

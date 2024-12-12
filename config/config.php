@@ -17,7 +17,8 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'company_management');
 
-define('SMTP_HOST', 'spse.jankarlik.cz');
-define('SMTP_USER', 'ems@spse.jankarlik.cz');
-define('SMTP_PASS', 'HovnoKleslo1234!');
-define('SMTP_PORT', 465);
+define('MAIL_USER', 'info@rodicaky.cz');
+define('MAIL_PSW', '!Schuzky2024!');
+define('MAIL_HOST', 'mail.rodicaky.cz');
+define('MAIL_PORT', 465);
+define('MAIL_SECURE', 'ssl');
