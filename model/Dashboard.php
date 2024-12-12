@@ -130,6 +130,7 @@ class Dashboard extends Model
         try {
 
             // Nastavení e-mailu
+            $mail->CharSet = 'UTF-8';
             $mail->setFrom(MAIL_USER, 'NEODPOVÍDAT');
             $mail->addAddress($email);
             $mail->Subject = 'Váš odkaz pro registraci';
@@ -138,7 +139,7 @@ class Dashboard extends Model
             ob_start();
 
 ?>
-            <h1>Vítejte, $name!</h1>
+            <h1>Vítejte, <?= $name ?>!</h1>
             <p>Klikněte na následující odkaz pro dokončení registrace a nastavení hesla:</p>
             <a href='<?= $registrationUrl ?>'><?= $registrationUrl ?></a>
 
