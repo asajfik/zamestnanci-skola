@@ -14,14 +14,25 @@ class DashboardController extends Controller
     {
         if (!$this->model->isLogged()) {
             header('Location: /');
+            exit;
         }
+
+        $sortBy = $_GET['sort_by'] ?? 'id';
+        $order = $_GET['order'] ?? 'ASC';
+        $department = $_GET['department'] ?? null;
+        $position = $_GET['position'] ?? null;
+        $minSalary = $_GET['min_salary'] ?? null;
+        $maxSalary = $_GET['max_salary'] ?? null;
+        $search = $_GET['search'] ?? null;
 
         $data = [
             'title' => 'Dashboard',
             'account' => $this->model->getLogged(),
-            'employees' => $this->model->getEmployees(),
+            'employees' => $this->model->getEmployees($sortBy, $order, $department, $position, $minSalary, $maxSalary, $search),
             'departments' => $this->model->getDepartments(),
             'positions' => $this->model->getPositions(),
+            'sortBy' => $sortBy,
+            'order' => $order,
         ];
 
         $this->view('dashboard/index', $data);

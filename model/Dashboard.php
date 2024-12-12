@@ -14,15 +14,46 @@ class Dashboard extends Model
         $this->db = $this->getDB();
     }
 
-    public function getEmployees(): array
+    public function getEmployees($sortBy = 'id', $order = 'ASC', $department = null, $position = null, $minSalary = null, $maxSalary = null, $search = null)
     {
-        $query = "SELECT employees.*, positions.name AS position_name, departments.name AS department_name
-                  FROM employees
-                  JOIN positions ON employees.position_id = positions.id
-                  JOIN departments ON employees.department_id = departments.id";
+        $sql = "SELECT e.*, d.name AS department_name, p.name AS position_name 
+            FROM employees e
+            LEFT JOIN departments d ON e.department_id = d.id
+            LEFT JOIN positions p ON e.position_id = p.id
+            WHERE 1=1";
 
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
+        $params = [];
+
+        if ($department) {
+            $sql .= " AND e.department_id = ?";
+            $params[] = $department;
+        }
+        if ($position) {
+            $sql .= " AND e.position_id = ?";
+            $params[] = $position;
+        }
+        if ($minSalary) {
+            $sql .= " AND e.salary >= ?";
+            $params[] = $minSalary;
+        }
+        if ($maxSalary) {
+            $sql .= " AND e.salary <= ?";
+            $params[] = $maxSalary;
+        }
+        if ($search) {
+            $sql .= " AND (e.name LIKE ? OR e.email LIKE ? OR e.salary LIKE ? OR e.start_date LIKE ? OR d.name LIKE ? OR p.name LIKE ?)";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+        }
+
+        $sql .= " ORDER BY $sortBy $order";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

@@ -2,7 +2,7 @@ CREATE DATABASE company_management;
 
 USE company_management;
 
-DROP TABLE registration_tokens;
+DROP TABLE positions;
 
 CREATE TABLE departments (
     id INT AUTO_INCREMENT PRIMARY KEY,

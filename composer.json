@@ -5,6 +5,12 @@
             "Asajf\\ZamestnanciSkola\\": "src/"
         }
     },
+    "authors": [
+        {
+            "name": "asajfik",
+            "email": "Asajfik@seznam.cz"
+        }
+    ],
     "require": {
         "phpmailer/phpmailer": "^6.9"
     }
